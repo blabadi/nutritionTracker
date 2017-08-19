@@ -1,0 +1,8 @@
+<div>
+  <input #searchBox type="text" id="searchBox" (keyup)="search(searchBox.value)">
+  <div>
+    <div *ngFor="let food of foods | async" (click)="setSelected(food)" class="search-result">
+      {{food.name}}
+    </div>
+  </div>
+</div>
