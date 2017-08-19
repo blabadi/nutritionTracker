@@ -1,0 +1,5 @@
+<div *ngIf="food">
+  <span>{{food.name}}</span>
+  <input #servings id="servingSize" value="{{food.servingSize}}" placeholder="servings consumed"> ({{food.servingUnit}} per serving)
+  <button (click)="addEntry(food, servings.value)">Add</button>
+</div>

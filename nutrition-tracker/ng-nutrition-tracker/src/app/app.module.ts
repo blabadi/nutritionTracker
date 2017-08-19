@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {DayEntriesComponent} from './day-entries/day-entries.component';
 import {AddEntryComponent} from "./entry/add-entry.component";
+import {AddFormComponent} from "./entry/add-form.component";
 import {SearchFoodComponent} from "./food/search-food.component";
 
 @NgModule({
@@ -11,6 +12,7 @@ import {SearchFoodComponent} from "./food/search-food.component";
     AppComponent,
     DayEntriesComponent,
     AddEntryComponent,
+    AddFormComponent,
     SearchFoodComponent
   ],
   imports: [

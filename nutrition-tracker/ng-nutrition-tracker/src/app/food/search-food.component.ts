@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 import {Food} from "../food/food";
 import { Observable }        from 'rxjs/Observable';
@@ -16,11 +16,15 @@ import {FoodService} from "../food/food-service";
 @Component({
     selector: 'search-food',
     templateUrl: './search-food.component.html',
+    styleUrls: ['./search-food.component.css'],
     providers: [FoodService]
 })
 export class SearchFoodComponent {
     foods:Observable<Food[]>;
     selectedFood: Food;
+
+    @Output() onFoodSearchSelected = new EventEmitter<Food>();
+
     private searchTerms = new Subject<string>();
 
     constructor(private foodService:FoodService){
@@ -47,6 +51,7 @@ export class SearchFoodComponent {
     }
 
     setSelected(food:Food){
+        this.onFoodSearchSelected.emit(this.selectedFood);
         this.selectedFood = food;
     }
 

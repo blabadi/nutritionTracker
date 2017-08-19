@@ -4,8 +4,6 @@ export class Food {
     name : string;
     brand: string = null;
     imageUrl: string = null;
-
-    servingSize: number;
     servingUnit: string;
     nutritionInfo: NutritionInfo = null;
 

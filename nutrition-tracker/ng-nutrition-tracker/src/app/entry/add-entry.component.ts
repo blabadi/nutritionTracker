@@ -10,15 +10,9 @@ import {Entry} from "./entry";
     providers: [EntryService]
 })
 export class AddEntryComponent {
+    selectedFood:Food;
 
-    constructor(private entrySvc:EntryService){
-    }
-
-    addEntry(food:Food){
-        let entry:Entry = new Entry();
-        entry.createdAt = new Date();
-        entry.food = new Food('a');
-
-        this.entrySvc.addEntry(entry);
+    onFoodSearchSelected(food:Food){
+        this.selectedFood = food;
     }
 }

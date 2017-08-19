@@ -1,7 +1,4 @@
 <div>
- <search-food></search-food>
- <div *ngIf="selectedFood">
-  <span>{{selectedFood.name}}</span>
-  <input #servingSize id="servingSize" value="{{selectedFood.servingSize}}">
- </div>
+ <search-food (onFoodSearchSelected)="onFoodSearchSelected($event)"></search-food>
+ <add-form *ngIf="selectedFood" [food]="selectedFood"></add-form>
 </div>

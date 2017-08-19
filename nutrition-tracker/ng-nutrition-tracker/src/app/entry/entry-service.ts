@@ -8,6 +8,7 @@ export class EntryService {
         let entries: Entry[] = [
             {
                 food: new Food('eggs'),
+                amount: 1.1,
                 createdAt: new Date(),
                 meal: 'BREAKFAST'
             }
