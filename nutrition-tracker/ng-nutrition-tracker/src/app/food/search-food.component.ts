@@ -53,7 +53,8 @@ export class SearchFoodComponent {
     setSelected(food:Food){
         this.selectedFood = food;
         this.onFoodSearchSelected.emit(this.selectedFood);
-        this.foods = Observable.of<Food[]>([]);
     }
+
+
 
 }

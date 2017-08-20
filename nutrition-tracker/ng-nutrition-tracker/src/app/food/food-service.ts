@@ -10,6 +10,6 @@ export class FoodService {
     };
 
     searchFood(term:string):Observable<Food[]> {
-        return  Observable.of(new MockFoods().getMockData());
+        return  Observable.of<Food[]>(new MockFoods().getMockData());
     }
 }

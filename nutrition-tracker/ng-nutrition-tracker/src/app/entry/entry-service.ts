@@ -4,19 +4,21 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class EntryService {
+    entries: Entry[] =[
+        {
+            food: new Food('eggs'),
+            amount: 1.1,
+            createdAt: new Date(),
+            meal: 'BREAKFAST'
+        }
+    ];
+
     getEntries(): Entry[] {
-        let entries: Entry[] = [
-            {
-                food: new Food('eggs'),
-                amount: 1.1,
-                createdAt: new Date(),
-                meal: 'BREAKFAST'
-            }
-        ];
-        return entries;
+        return this.entries;
     }
 
     addEntry(entry:Entry){
-
+        entry.createdAt = new Date();
+        this.entries.push(entry);
     }
 }

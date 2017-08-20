@@ -1,8 +1,8 @@
-<div>
+<div class="search-food-container m-3">
   <input #searchBox type="text" id="search-box" class="form-control form-control-lg" (keyup)="search(searchBox.value)" placeholder="Search for food..">
-  <div>
-    <div *ngFor="let food of foods | async" (click)="setSelected(food);searchBox.value = '';" class="search-result">
-      {{food.name}}
+  <div class="search-result-list" *ngIf="searchBox.value">
+    <div *ngFor="let f of foods | async" (click)="setSelected(f);searchBox.value = '';" class="search-result">
+      {{f.name}}
     </div>
   </div>
 </div>

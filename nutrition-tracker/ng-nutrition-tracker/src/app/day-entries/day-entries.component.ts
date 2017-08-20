@@ -13,6 +13,7 @@ export class DayEntriesComponent {
     entries:Entry[];
 
     constructor(private entryService: EntryService) { };
+
     ngOnInit(): void {
         this.entries = this.entryService.getEntries();
     }

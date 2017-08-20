@@ -19,8 +19,13 @@ export class AddFormComponent {
     addEntry(food:Food, amount:number){
         let entry:Entry = new Entry();
         entry.createdAt = new Date();
-        entry.food = new Food('a');
+        entry.food = food;
         entry.amount = amount;
         this.entrySvc.addEntry(entry);
+        this.food = null;
+    }
+
+    cancel(){
+        this.food = null;
     }
 }
