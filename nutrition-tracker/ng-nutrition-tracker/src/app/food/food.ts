@@ -7,8 +7,9 @@ export class Food {
     servingUnit: string;
     nutritionInfo: NutritionInfo = null;
 
-    constructor(name:string) {
+    constructor(name:string, servingUnit?:string) {
         this.name = name;
+        this.servingUnit = servingUnit;
     }
 }
 

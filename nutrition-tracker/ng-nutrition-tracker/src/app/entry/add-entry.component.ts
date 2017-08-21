@@ -15,4 +15,9 @@ export class AddEntryComponent {
     onFoodSearchSelected(food:Food){
         this.selectedFood = food;
     }
+
+    entryAdded(entry:Entry) {
+        console.log('AddEntryComponent: entryAdded..');
+    }
+
 }

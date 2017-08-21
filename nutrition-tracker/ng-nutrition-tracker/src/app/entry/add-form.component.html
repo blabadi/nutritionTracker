@@ -1,14 +1,15 @@
-<div *ngIf="food" class="form-inline add-entry-form panel panel-primary">
+<div *ngIf="entry.food" class="form-inline add-entry-form panel panel-primary">
   <div class="panel-heading"> New Entry</div>
   <div class="panel-body">
-    <label for="servingSize" class="add-form-food-label">{{food.name}}</label>
+    <label for="servingSize"  class="add-form-food-label">{{entry.food.name}}</label>
 
     <div class="input-group serving-field-grp">
-      <input #servings id="servingSize" value="{{food.servingSize}}" type="number" min="0" class="form-control"
-             placeholder="servings consumed - {{food.servingUnit}} per serving">
+      <input #servings id="servingSize" [(ngModel)]="entry.amount" type="number" min="0" class="form-control"
+             placeholder="servings consumed - {{entry.food.servingUnit}} per serving">
 
+      <!-- todo add meal drop down -->
       <div class="input-group-btn">
-        <button (click)="addEntry(food, servings.value)" class="btn btn-primary">Add</button>
+        <button (click)="addEntry()" class="btn btn-primary">Add</button>
         <button (click)="cancel()" class="btn btn-secondary">Cancel</button>
       </div>
     </div>

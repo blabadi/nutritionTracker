@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 
 import {Food} from "../food/food";
 import { Observable }        from 'rxjs/Observable';
@@ -19,7 +19,7 @@ import {FoodService} from "../food/food-service";
     styleUrls: ['./search-food.component.css'],
     providers: [FoodService]
 })
-export class SearchFoodComponent {
+export class SearchFoodComponent implements OnInit {
     foods:Observable<Food[]>;
     selectedFood: Food;
 

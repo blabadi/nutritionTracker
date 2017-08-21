@@ -1,4 +1,4 @@
 <div>
  <search-food (onFoodSearchSelected)="onFoodSearchSelected($event)"></search-food>
- <add-form *ngIf="selectedFood" [food]="selectedFood"></add-form>
+ <add-form *ngIf="selectedFood" [food]="selectedFood" (onEntryAdded)="entryAdded($event)"></add-form>
 </div>
