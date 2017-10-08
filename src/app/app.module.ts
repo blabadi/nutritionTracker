@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import {DayEntriesComponent} from './day-entries/day-entries.component';
@@ -14,23 +14,31 @@ import { InMemoryDataService }  from './in-memory-data.service';
 
 import { HttpModule } from '@angular/http';
 
+import { EventsServiceModule } from 'angular-event-service';
+import { EventsService } from 'angular-event-service';
+import {TitleCasePipe} from "./pipes/title-case-pipe";
+import {AddFoodComponent} from "./food/add-food.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    DayEntriesComponent,
     AddEntryComponent,
+    DayEntriesComponent,
     AddFormComponent,
-    SearchFoodComponent
+    SearchFoodComponent,
+    TitleCasePipe,
+    AddFoodComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
+    //InMemoryWebApiModule.forRoot(InMemoryDataService),
     HttpModule,
+    EventsServiceModule.forRoot()
   ],
-  providers: [],
+  providers: [EventsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

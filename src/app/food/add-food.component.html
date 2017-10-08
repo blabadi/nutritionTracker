@@ -1,0 +1,47 @@
+<div class="panel panel-primary mt-3">
+  <div class="panel-heading"> New Food</div>
+  <div class="panel-body">
+    <form (ngSubmit)="addFood()" #addForm="ngForm">
+      <div class="form-group">
+        <label for="foodName">Name</label>
+        <input type="text" class="form-control" required  name="foodName" id="foodName" aria-describedby="foodName" [(ngModel)]="food.name"
+               placeholder="Food name, ex: bread, eggs, chocolate..etc" #name="ngModel">
+        <small id="nameHelp" class="form-text text-muted">the food name is what kind of food it is, not the brand.
+        </small>
+        <div [hidden]="name.valid || name.pristine"
+             class="alert alert-danger">
+          Name is required
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="brand">Brand</label>
+        <input type="text" class="form-control"  id="brand" name="brand" placeholder="Food Brand" [(ngModel)]="food.brand">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="unit" class="col-form-label">Serving Unit</label>
+          <input type="text" required  class="form-control" id="unit" name="unit" [(ngModel)]="food.unit"
+                 placeholder="1 oz, 100 g, 1 slice, 1 cup.. anything you want..">
+        </div>
+        <div class="form-group col-md-2">
+          <label for="calories" class="col-form-label">Calories</label>
+          <input type="number" class="form-control" id="calories" name="calories" [(ngModel)]="food.calories" min="0" aria-valuemin="0">
+        </div>
+        <div class="form-group col-md-2">
+          <label for="carbs" class="col-form-label">Carbs</label>
+          <input type="number" class="form-control" id="carbs" name="carbs" [(ngModel)]="food.carbs" min="0" aria-valuemin="0">
+        </div>
+        <div class="form-group col-md-2">
+          <label for="protein" class="col-form-label">Protein</label>
+          <input type="number" class="form-control" id="protein" name="protein" [(ngModel)]="food.protein" min="0" aria-valuemin="0">
+        </div>
+        <div class="form-group col-md-2">
+          <label for="fats" class="col-form-label">Fats</label>
+          <input type="number" class="form-control" id="fats" name="protein" [(ngModel)]="food.fat" min="0" aria-valuemin="0">
+        </div>
+      </div>
+        <button type="submit" [disabled]="!addForm.form.valid" class="btn btn-success">Submit</button>
+        <button (click)="cancel()" class="btn btn-secondary">Cancel</button>
+    </form>
+  </div>
+</div>

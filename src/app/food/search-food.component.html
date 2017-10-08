@@ -2,7 +2,10 @@
   <input #searchBox type="text" id="search-box" class="form-control form-control-lg" (keyup)="search(searchBox.value)" placeholder="Search for food..">
   <div class="search-result-list" *ngIf="searchBox.value">
     <div *ngFor="let f of foods | async" (click)="setSelected(f);searchBox.value = '';" class="search-result">
-      {{f.name}}
+      {{f.name}} - {{f.brand | titleCase  }} <!-- title case custom pipe just for demo.. -->
+    </div>
+    <div class="search-result" (click) = "searchBox.value = '';addNewFood();">
+      <strong>Add New...</strong>
     </div>
   </div>
 </div>

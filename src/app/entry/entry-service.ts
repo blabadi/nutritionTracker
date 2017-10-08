@@ -3,12 +3,14 @@ import {Food} from '../food/food';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { Headers, Http } from '@angular/http';
+import {Constants} from "../constants";
 
 
 @Injectable()
 export class EntryService {
 
-    private entriesApiUrl = 'api/entries';
+    private entriesApiUrl = Constants.API.SERVER_BASE + "/entry/";//'api/entries';
+
     private headers = new Headers({'Content-Type': 'application/json'});
 
     constructor(private http:Http){}
@@ -16,13 +18,12 @@ export class EntryService {
     getEntries(): Promise<Entry[]> {
         return this.http.get(this.entriesApiUrl)
             .toPromise()
-            .then(response => response.json().data as Entry[])
+            .then(response => response.json() as Entry[])
             .catch(this.handleError);
     }
 
     addEntry(entry:Entry): Promise<Entry>{
         entry.createdAt = new Date();
-        //Promise.resolve(entry);
         return this.http
             .post(this.entriesApiUrl, JSON.stringify(entry), {headers: this.headers})
             .toPromise()

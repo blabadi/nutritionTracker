@@ -13,6 +13,11 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import {FoodService} from "../food/food-service";
 
+import { EventsService } from 'angular-event-service';
+
+import {Constants} from "../constants";
+import {TitleCasePipe} from "../pipes/title-case-pipe";
+
 @Component({
     selector: 'search-food',
     templateUrl: './search-food.component.html',
@@ -27,10 +32,11 @@ export class SearchFoodComponent implements OnInit {
 
     private searchTerms = new Subject<string>();
 
-    constructor(private foodService:FoodService){
+    constructor(private foodService:FoodService, private _evtsSvc: EventsService){
     }
 
     ngOnInit(): void{
+
         this.foods = this.searchTerms
             .debounceTime(300)        // wait 300ms after each keystroke before considering the term
             .distinctUntilChanged()   // ignore if next search term is same as previous
@@ -51,10 +57,15 @@ export class SearchFoodComponent implements OnInit {
     }
 
     setSelected(food:Food){
+        console.debug('food selected from search');
         this.selectedFood = food;
         this.onFoodSearchSelected.emit(this.selectedFood);
+        this._evtsSvc.broadcast(Constants.EVENTS.SEARCH_FOOD_SELECTED, food);
+        console.debug('food search set selected done');
     }
 
-
+    addNewFood() {
+        this._evtsSvc.broadcast(Constants.EVENTS.ADD_NEW_FOOD_SELECTED);
+    }
 
 }

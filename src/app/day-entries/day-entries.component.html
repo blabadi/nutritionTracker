@@ -2,7 +2,7 @@
   <h3>Today you ate:</h3>
   <ul>
     <li *ngFor="let entry of entries">
-      <span>{{entry.food.name}}, {{entry.amount}} serving ({{entry.food.servingUnit}}), {{entry.createdAt | date:'shortTime'}}</span>
+      <span>{{entry.food.name}}, {{entry.amount}} serving<small>(s)</small> ({{entry.food.unit}}), {{entry.createdAt | date:'shortTime'}}</span>
     </li>
   </ul>
 </div>
