@@ -14,10 +14,14 @@ import { InMemoryDataService }  from './in-memory-data.service';
 
 import { HttpModule } from '@angular/http';
 
-import { EventsServiceModule } from 'angular-event-service';
-import { EventsService } from 'angular-event-service';
+//import { EventsServiceModule } from 'angular-event-service';
 import {TitleCasePipe} from "./pipes/title-case-pipe";
 import {AddFoodComponent} from "./food/add-food.component";
+import {EventsBroker} from "./broker/components-event-broker";
+import {PeriodProgressMeasureComponent} from "./day-progress-bars/period-progress.component";
+import {ProgressMeasureComponent} from "./day-progress-bars/progress-measure.component";
+import {EntryService} from "./entry/entry-service";
+import {FoodService} from "./food/food-service";
 
 @NgModule({
   declarations: [
@@ -27,7 +31,9 @@ import {AddFoodComponent} from "./food/add-food.component";
     AddFormComponent,
     SearchFoodComponent,
     TitleCasePipe,
-    AddFoodComponent
+    AddFoodComponent,
+    PeriodProgressMeasureComponent,
+    ProgressMeasureComponent
   ],
   imports: [
     BrowserModule,
@@ -36,9 +42,9 @@ import {AddFoodComponent} from "./food/add-food.component";
     HttpModule,
     //InMemoryWebApiModule.forRoot(InMemoryDataService),
     HttpModule,
-    EventsServiceModule.forRoot()
+    //EventsServiceModule.forRoot()
   ],
-  providers: [EventsService],
+  providers: [EventsBroker, EntryService, FoodService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

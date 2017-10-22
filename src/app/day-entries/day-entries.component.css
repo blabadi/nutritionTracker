@@ -1,0 +1,9 @@
+.day-entry{
+  margin: 1rem;
+}
+
+.day-entry .card:hover {
+  border:1px solid #C8C8C8;
+  cursor: pointer;
+  background-color: #F8F8F8
+}

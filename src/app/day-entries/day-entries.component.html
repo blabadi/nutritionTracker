@@ -1,8 +1,17 @@
 <div>
   <h3>Today you ate:</h3>
-  <ul>
-    <li *ngFor="let entry of entries">
-      <span>{{entry.food.name}}, {{entry.amount}} serving<small>(s)</small> ({{entry.food.unit}}), {{entry.createdAt | date:'shortTime'}}</span>
-    </li>
-  </ul>
+    <div *ngFor="let entry of entries" class="day-entry">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">{{entry.food.name}}</h4>
+          <div class="card-subtitle mb-2 text-muted">{{entry.amount}} serving<small>(s)</small>, {{entry.food.unit}} each</div>
+          <p class="card-text">Nutritional Info: {{entry.food.calories * entry.amount}} calories - {{entry.food.carbs * entry.amount}} carbs - {{entry.food.fat * entry.amount}} fats - {{entry.food.protein * entry.amount}} protein </p>
+          <p class="card-text"><small class="text-muted">{{entry.createdAt | date:'short'}}</small></p>
+
+          <a href="#" class="card-link">Duplicate</a>
+          <a href="#" class="card-link">Edit</a>
+          <a href="#" class="card-link">Remove</a>
+        </div>
+      </div>
+    </div>
 </div>

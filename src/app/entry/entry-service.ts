@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { Headers, Http } from '@angular/http';
 import {Constants} from "../constants";
-
+import {PeriodMeasures} from "../day-progress-bars/period-measures";
+import {Measurement} from "../day-progress-bars/measurement";
 
 @Injectable()
 export class EntryService {
@@ -14,6 +15,33 @@ export class EntryService {
     private headers = new Headers({'Content-Type': 'application/json'});
 
     constructor(private http:Http){}
+
+    getPeriodTotals(startDate:Date, endDate?:Date): PeriodMeasures {
+        let periodMeasures = new PeriodMeasures();
+        periodMeasures.carbs = new Measurement();
+        periodMeasures.carbs.label = "carbs";
+        periodMeasures.carbs.target = 220;
+        periodMeasures.carbs.value = 80;
+
+        periodMeasures.fats = new Measurement();
+        periodMeasures.fats.label = "fats";
+        periodMeasures.fats.target = 56;
+        periodMeasures.fats.value = 15;
+
+        periodMeasures.proteins = new Measurement();
+        periodMeasures.proteins.label = "proteins";
+        periodMeasures.proteins.target = 150;
+        periodMeasures.proteins.value = 73;
+
+        periodMeasures.calories = new Measurement();
+        periodMeasures.calories.label = "calories";
+        periodMeasures.calories.target = 1900;
+        periodMeasures.calories.value = 1124;
+
+        periodMeasures.startDate = startDate;
+        periodMeasures.endDate = endDate;
+        return periodMeasures;
+    }
 
     getEntries(): Promise<Entry[]> {
         return this.http.get(this.entriesApiUrl)
