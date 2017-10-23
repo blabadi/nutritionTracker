@@ -1,5 +1,18 @@
-<div>
- <search-food></search-food>
- <add-form (onEntryAdded)="entryAdded($event)"></add-form>
- <add-food *ngIf="showAddFoodForm"></add-food>
+<div class="row">
+ <div class="col-md-12">
+ <div class="card search-food-card">
+  <div class="card-header">Add New Entry</div>
+  <div class="card-body">
+   <h4 class="card-title"></h4>
+   <search-food></search-food>
+  </div>
+ </div>
+ </div>
+</div>
+
+<div class="row">
+ <div class="col-md-12">
+  <add-form (onEntryAdded)="entryAdded($event)"></add-form>
+  <add-food *ngIf="showAddFoodForm"></add-food>
+ </div>
 </div>
