@@ -1,15 +1,49 @@
 .date-nav-container {
- vertical-align: middle;
+  vertical-align: middle;
+  border-bottom: 1px solid #c8c8c8;
+  height:57px;
+  /*overflow:hidden;*/
 }
 
 .date-control {
-  font-size: 3rem;
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+.date-control-btn-back {
+  border: 1px solid #c8c8c8;
+  border-bottom: none;
+  border-right: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 8px;
+  /*box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.16), 0 1px 1px 0 rgba(0, 0, 0, 0.12);*/
+}
+
+.date-control-btn-forward {
+  border: 1px solid #c8c8c8;
+  border-bottom: none;
+  border-left: none;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 10px;
+  /*box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.16), 0 1px 1px 0 rgba(0, 0, 0, 0.12);*/
 }
 
 .date-display {
   display:inline-block;
   width:25rem;
-  font-size: 2.2rem;
+  font-size: 2rem;
   text-align: center;
   padding:5px 0;
+  color: #007bff;
+  border: 1px solid #c8c8c8;
+  border-bottom: 2px solid #FFF;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0 -1px 0.5px 0 rgba(0, 0, 0, 0.16);
+
+  position: relative;
+  top: -5px;
+  height: 62px;
+  z-index: 9999;
 }
+

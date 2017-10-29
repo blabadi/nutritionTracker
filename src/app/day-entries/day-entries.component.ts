@@ -4,6 +4,7 @@ import {Entry} from '../entry/entry';
 import * as moment from 'moment';
 import {Constants} from "../constants"
 import {EventsBroker} from "../broker/components-event-broker";
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'day-entries',
@@ -13,8 +14,6 @@ import {EventsBroker} from "../broker/components-event-broker";
 export class DayEntriesComponent implements OnInit, OnDestroy {
     @Input()
     entries:Entry[] = [];
-
-
     // because we don't control the order of initialization
     // it's always a good idea to intialize the inputs
     // to a default reasonable value
@@ -31,11 +30,19 @@ export class DayEntriesComponent implements OnInit, OnDestroy {
                 private eventsBroker:EventsBroker) {};
 
     ngOnInit(): void {
+
+        //subscribe for the entries changes
+        this.entryService.entriesObservable().subscribe(entries => {
+            this.entries = entries.sort((e1, e2)=> {
+                return e1.createdAt < e2.createdAt ? 1: -1;
+            });
+        });
         console.log('on init day entries in');
         this.eventsBroker.register({
             name: Constants.COMPONENTS.DAY_ENTRIES,
             changeHandlers: {
-                entries: this.callbackListener,
+                //no longer needed, since we observe the entities in the entry-service
+                //entries: this.callbackListener,
                 dateRange: this.dateChanged
             }
         });
@@ -43,16 +50,14 @@ export class DayEntriesComponent implements OnInit, OnDestroy {
     }
 
     getEntries(){
-        return this.entryService.getEntries(this.dateRange.start, this.dateRange.end).then(e => this.entries = e.sort((e1, e2)=> {
-           return e1.createdAt < e2.createdAt ? 1: -1;
-        }));
+        this.entryService.getEntries(this.dateRange.start, this.dateRange.end);
     }
 
-    public callbackListener: Function = (msg: any) => {
-        let entry:Entry = <Entry> msg.value;
-        console.log('received from evnt service : ' ,  entry);
-        this.entryAdded(entry);
-    };
+    //public callbackListener: Function = (msg: any) => {
+    //    let entry:Entry = <Entry> msg.value;
+    //    console.log('received from evnt service : ' ,  entry);
+    //    this.entryAdded(entry);
+    //};
 
     public dateChanged =  (msg: any) => {
         let range:any = msg.value;
@@ -64,10 +69,10 @@ export class DayEntriesComponent implements OnInit, OnDestroy {
         this.getEntries();
     };
 
-    entryAdded(entry:Entry){
-        console.log('entry added detected.');
-        this.getEntries();
-    }
+    //entryAdded(entry:Entry){
+    //    console.log('entry added detected.');
+    //    this.getEntries();
+    //}
 
     ngOnDestroy() {
         this.eventsBroker.unregister( Constants.COMPONENTS.DAY_ENTRIES);

@@ -9,9 +9,6 @@
 .search-result:last-child {
   border-bottom: none;
 }
-#search-box {
-  padding: 2rem 1rem;
-}
 
 #search-box:focus {
 }
@@ -33,5 +30,5 @@
 }
 
 .search-food-container {
-  height:4rem;
+  /*height:4rem;*/
 }

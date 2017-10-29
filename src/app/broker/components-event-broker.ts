@@ -25,7 +25,10 @@ export class EventsBroker {
                 this.call(Constants.COMPONENTS.ADD_ENTRY_FORM, 'food', {value: payload});
                 this.call(Constants.COMPONENTS.ADD_ENTRY, 'showAddFoodForm', {value: false});
             case Constants.EVENTS.ENTRY_ADDED:
-                return this.call(Constants.COMPONENTS.DAY_ENTRIES,'entries', {value: payload});
+            //  not needed anymore since we use observables to observe changes on the entries
+            //  when we add an entry, so no need to publish this even to Day entries component.
+            //    return this.call(Constants.COMPONENTS.DAY_ENTRIES,'entries', {value: payload});
+                break;
             case Constants.EVENTS.ADD_NEW_FOOD_SELECTED:
                 return this.call(Constants.COMPONENTS.ADD_ENTRY, 'showAddFoodForm', {value: true});
             case Constants.EVENTS.ADD_FOOD_CANCELED:

@@ -1,12 +1,4 @@
-/*.add-entry-form {*/
-  /*margin: 2rem;*/
-/*}*/
 
-/*.add-form-food-label{*/
-  /*width: 10%;*/
-/*}*/
-
-
-/*.serving-field-grp {*/
-  /*width: 50%;*/
-/*}*/
+.add-entry-form .card-header {
+  color: whitesmoke;
+}

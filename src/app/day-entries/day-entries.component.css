@@ -7,14 +7,12 @@
 }
 
 .day-entry .card:hover {
-  border:1px solid #337ab7;
+  border:1px solid #007bff;
   cursor: pointer;
   margin-left: 10px;
 }
 
 .day-entries-container {
   /*max-height: 400px;*/
-  overflow-y: auto;
-
 }
 

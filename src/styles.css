@@ -23,9 +23,12 @@ body{
 }
 
 .daily-progress {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
+.add-entry-form, .add-food-container{
+  margin-bottom: 1rem;
+}
 
 /**  STYLE 1 */
 ::-webkit-scrollbar {

@@ -6,7 +6,8 @@ import {Constants} from '../constants'
 import {EventsBroker} from "../broker/components-event-broker";
 @Component({
     selector: 'add-food',
-    templateUrl: 'add-food.component.html'
+    templateUrl: 'add-food.component.html',
+    styleUrls: ['./add-food.component.css']
 })
 export class AddFoodComponent implements OnInit {
     food = new Food(null);
