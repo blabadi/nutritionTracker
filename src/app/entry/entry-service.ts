@@ -1,4 +1,5 @@
 import { Entry } from './entry';
+import * as moment from 'moment';
 import {Food} from '../food/food';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
@@ -43,8 +44,8 @@ export class EntryService {
         return periodMeasures;
     }
 
-    getEntries(): Promise<Entry[]> {
-        return this.http.get(this.entriesApiUrl)
+    getEntries(start:moment.Moment, end:moment.Moment): Promise<Entry[]> {
+        return this.http.get(this.entriesApiUrl + `/from/${start.format('YYYYMMDD')}/to/${end.format('YYYYMMDD')}` )
             .toPromise()
             .then(response => response.json() as Entry[])
             .catch(this.handleError);

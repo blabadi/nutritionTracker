@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy  } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input  } from '@angular/core';
 import  {EntryService} from '../entry/entry-service'
 import {Entry} from '../entry/entry';
-
+import * as moment from 'moment';
 import {Constants} from "../constants"
 import {EventsBroker} from "../broker/components-event-broker";
 
@@ -11,23 +11,39 @@ import {EventsBroker} from "../broker/components-event-broker";
     styleUrls: ['./day-entries.component.css']
 })
 export class DayEntriesComponent implements OnInit, OnDestroy {
-    entries:Entry[];
+    @Input()
+    entries:Entry[] = [];
+
+
+    // because we don't control the order of initialization
+    // it's always a good idea to intialize the inputs
+    // to a default reasonable value
+    // in this case the date navigator is initalized before this component
+    // so we should load something in the first hit.
+    // another solution could be passing the default inputs from parents chain
+    @Input()
+    dateRange = {
+        start: moment().startOf('day'),
+        end: moment().startOf('day')
+    };
+
     constructor(private entryService: EntryService,
                 private eventsBroker:EventsBroker) {};
 
     ngOnInit(): void {
         console.log('on init day entries in');
-        this.getEntries();
         this.eventsBroker.register({
             name: Constants.COMPONENTS.DAY_ENTRIES,
             changeHandlers: {
-                entries: this.callbackListener
+                entries: this.callbackListener,
+                dateRange: this.dateChanged
             }
         });
+        this.getEntries();
     }
 
     getEntries(){
-        return this.entryService.getEntries().then(e => this.entries = e.sort((e1, e2)=> {
+        return this.entryService.getEntries(this.dateRange.start, this.dateRange.end).then(e => this.entries = e.sort((e1, e2)=> {
            return e1.createdAt < e2.createdAt ? 1: -1;
         }));
     }
@@ -38,8 +54,18 @@ export class DayEntriesComponent implements OnInit, OnDestroy {
         this.entryAdded(entry);
     };
 
+    public dateChanged =  (msg: any) => {
+        let range:any = msg.value;
+        console.log('received new date range from evnt service : ',  range);
+        this.dateRange ={
+            start: range.start,
+            end: range.end
+        };
+        this.getEntries();
+    };
+
     entryAdded(entry:Entry){
-        console.log('entry added detected.')
+        console.log('entry added detected.');
         this.getEntries();
     }
 

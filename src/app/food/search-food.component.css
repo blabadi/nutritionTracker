@@ -1,24 +1,37 @@
 .search-result{
-  border-bottom: 1px solid gray;
-  border-left: 1px solid gray;
-  border-right: 1px solid gray;
-  width:400px;
-  padding: 5px;
-
+  border-bottom: 1px solid #c8c8c8;
+  width:100%;
+  padding: 10px;
   cursor: pointer;
+  transition: 0.15s all;
+}
+
+.search-result:last-child {
+  border-bottom: none;
+}
+#search-box {
+  padding: 2rem 1rem;
+}
+
+#search-box:focus {
 }
 
 .search-result-list{
-  position: absolute;
+  position: relative;
   z-index: 9999;
   background-color:white;
-
+  border: 1px solid #c8c8c8;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  max-height: 250px;
+  overflow-y: auto;
 }
+
 .search-result:hover {
-  color: #eee;
-  background-color: #607D8B;
+  color: #f8f8f8;
+  background-color: #337ab7;
 }
 
 .search-food-container {
-
+  height:4rem;
 }

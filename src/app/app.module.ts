@@ -22,10 +22,12 @@ import {PeriodProgressMeasureComponent} from "./day-progress-bars/period-progres
 import {ProgressMeasureComponent} from "./day-progress-bars/progress-measure.component";
 import {EntryService} from "./entry/entry-service";
 import {FoodService} from "./food/food-service";
+import {DateNavigatorComponent} from "./date-navigator/date-navigator.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    DateNavigatorComponent,
     AddEntryComponent,
     DayEntriesComponent,
     AddFormComponent,

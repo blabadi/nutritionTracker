@@ -32,6 +32,8 @@ export class EventsBroker {
                 return this.call(Constants.COMPONENTS.ADD_ENTRY, 'showAddFoodForm', {value: false});
             case Constants.EVENTS.FOOD_ADDED:
                 return this.call(Constants.COMPONENTS.ADD_ENTRY, 'showAddFoodForm', {value: false});
+            case Constants.EVENTS.DATE_CHANGED:
+                return this.call(Constants.COMPONENTS.DAY_ENTRIES, 'dateRange', {value: payload});
             default:
                 console.log('event handlers not mapped.');
         }
