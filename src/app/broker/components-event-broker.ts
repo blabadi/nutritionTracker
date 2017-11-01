@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Constants} from "../constants";
+import * as moment from 'moment';
 
 @Injectable()
 export class EventsBroker {
@@ -36,7 +37,10 @@ export class EventsBroker {
             case Constants.EVENTS.FOOD_ADDED:
                 return this.call(Constants.COMPONENTS.ADD_ENTRY, 'showAddFoodForm', {value: false});
             case Constants.EVENTS.DATE_CHANGED:
-                return this.call(Constants.COMPONENTS.DAY_ENTRIES, 'dateRange', {value: payload});
+                this.call(Constants.COMPONENTS.DAY_ENTRIES, 'dateRange', {value: payload});
+                let entryDate = (<moment.Moment> payload.start).toDate();
+                this.call(Constants.COMPONENTS.ADD_ENTRY_FORM, 'entryDate', {value: entryDate})
+                break;
             default:
                 console.log('event handlers not mapped.');
         }

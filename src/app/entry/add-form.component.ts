@@ -11,9 +11,13 @@ import {EventsBroker} from "../broker/components-event-broker";
     styleUrls: ['./add-form.component.css'],
 })
 export class AddFormComponent implements OnInit, OnDestroy {
-    @Input() food:Food;
     entry:Entry = new Entry();
-    @Output() onEntryAdded = new EventEmitter<Entry>();
+    @Input()
+    food:Food;
+    @Output()
+    onEntryAdded = new EventEmitter<Entry>();
+    @Input()
+    entryDate:Date;
 
     constructor(private entrySvc:EntryService,
                 private _eventBroker:EventsBroker){}
@@ -22,7 +26,11 @@ export class AddFormComponent implements OnInit, OnDestroy {
         this._eventBroker.register({
             name: Constants.COMPONENTS.ADD_ENTRY_FORM,
             changeHandlers: {
-                food: this.foodChanged
+                food: this.foodChanged,
+                entryDate: (msg)=> {
+                    console.log('date changed for add form ', msg);
+                    this.entryDate = msg.value;
+                }
             }
         });
     }
@@ -33,7 +41,7 @@ export class AddFormComponent implements OnInit, OnDestroy {
     };
 
     addEntry(){
-        this.entry.createdAt = new Date();
+        this.entry.createdAt = this.entryDate;
         this.entrySvc
             .addEntry(this.entry)
             .then(entry => {

@@ -1,5 +1,3 @@
 export class Measurement {
-    label:string;
-    value:number;
-    target: number;
+    constructor(public label:String,public value:number, public target: number){}
 }

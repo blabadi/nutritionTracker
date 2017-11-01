@@ -15,9 +15,9 @@ export class DayEntriesComponent implements OnInit, OnDestroy {
     @Input()
     entries:Entry[] = [];
     // because we don't control the order of initialization
-    // it's always a good idea to intialize the inputs
+    // it's always a good idea to initialize the inputs
     // to a default reasonable value
-    // in this case the date navigator is initalized before this component
+    // in this case the date navigator is initialized before this component
     // so we should load something in the first hit.
     // another solution could be passing the default inputs from parents chain
     @Input()
@@ -26,11 +26,14 @@ export class DayEntriesComponent implements OnInit, OnDestroy {
         end: moment().startOf('day')
     };
 
+    underEditEntryId: string;
+    showUndoDelete:boolean = false;
+    lastDeletedEntry:Entry;
+
     constructor(private entryService: EntryService,
                 private eventsBroker:EventsBroker) {};
 
     ngOnInit(): void {
-
         //subscribe for the entries changes
         this.entryService.entriesObservable().subscribe(entries => {
             this.entries = entries.sort((e1, e2)=> {
@@ -53,11 +56,39 @@ export class DayEntriesComponent implements OnInit, OnDestroy {
         this.entryService.getEntries(this.dateRange.start, this.dateRange.end);
     }
 
-    //public callbackListener: Function = (msg: any) => {
-    //    let entry:Entry = <Entry> msg.value;
-    //    console.log('received from evnt service : ' ,  entry);
-    //    this.entryAdded(entry);
-    //};
+    undoDelete() {
+        this.entryService.addEntry(this.lastDeletedEntry);
+        this.showUndoDelete = false;
+    }
+
+    remove(entry:Entry) {
+        this.entryService.delete(entry.id);
+        this.showUndoDelete = true;
+        setTimeout(()=>{
+            this.showUndoDelete = false;
+            this.lastDeletedEntry = null;
+        }, 7000);
+        this.lastDeletedEntry = entry;
+    }
+
+    editMode(entry:Entry) {
+        //stop any other edit mode first
+        this.stopEdit();
+        this.underEditEntryId = entry.id;
+    }
+
+    saveEdit(entry:Entry) {
+        this.entryService.edit(entry);
+        this.stopEdit();
+    }
+
+    stopEdit() {
+        this.underEditEntryId = null;
+    }
+
+    isEditMode(id) {
+        return this.underEditEntryId == id;
+    }
 
     public dateChanged =  (msg: any) => {
         let range:any = msg.value;
@@ -68,11 +99,6 @@ export class DayEntriesComponent implements OnInit, OnDestroy {
         };
         this.getEntries();
     };
-
-    //entryAdded(entry:Entry){
-    //    console.log('entry added detected.');
-    //    this.getEntries();
-    //}
 
     ngOnDestroy() {
         this.eventsBroker.unregister( Constants.COMPONENTS.DAY_ENTRIES);

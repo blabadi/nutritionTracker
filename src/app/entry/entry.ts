@@ -1,7 +1,7 @@
 import {Food} from '../food/food';
 
 export class Entry {
-    id: number;
+    id: string;
     //the food eaten
     food : Food;
     //the serving of that food multiplier

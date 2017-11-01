@@ -22,6 +22,9 @@ body{
   box-shadow: 0 0px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 12px 0 rgba(0, 0, 0, 0.15);
 }
 
+.btn-link {
+  cursor: pointer;
+}
 .daily-progress {
   margin-bottom: 2rem;
 }
@@ -46,4 +49,15 @@ body{
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
   border-radius: 10px;
   background-color: #F5F5F5;
+}
+
+.vertical-align-mid{
+  vertical-align: middle;
+}
+
+.top-alert {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 1rem;
 }

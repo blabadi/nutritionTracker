@@ -42,33 +42,6 @@ export class EntryService {
         return this.entriesSubject.asObservable();
     }
 
-    getPeriodTotals(startDate:Date, endDate?:Date): PeriodMeasures {
-        let periodMeasures = new PeriodMeasures();
-        periodMeasures.carbs = new Measurement();
-        periodMeasures.carbs.label = "Carbs";
-        periodMeasures.carbs.target = 220;
-        periodMeasures.carbs.value = 80;
-
-        periodMeasures.fats = new Measurement();
-        periodMeasures.fats.label = "Fats";
-        periodMeasures.fats.target = 56;
-        periodMeasures.fats.value = 15;
-
-        periodMeasures.proteins = new Measurement();
-        periodMeasures.proteins.label = "Proteins";
-        periodMeasures.proteins.target = 150;
-        periodMeasures.proteins.value = 73;
-
-        periodMeasures.calories = new Measurement();
-        periodMeasures.calories.label = "Calories";
-        periodMeasures.calories.target = 1900;
-        periodMeasures.calories.value = 1124;
-
-        periodMeasures.startDate = startDate;
-        periodMeasures.endDate = endDate;
-        return periodMeasures;
-    }
-
     getEntries(start:moment.Moment, end:moment.Moment) {
         return this.http.get(this.entriesApiUrl + `/from/${start.format('YYYYMMDD')}/to/${end.format('YYYYMMDD')}` )
             // map returns observable
@@ -82,8 +55,37 @@ export class EntryService {
             }, error => this.handleError(error));
     }
 
+    edit(entry:Entry) {
+        let id = entry.id;
+        return this.http
+            .put(this.entriesApiUrl, JSON.stringify(entry), {headers: this.headers})
+            .toPromise()
+            //.then(res => res.json() as Entry)
+            .then(() => {
+                this.dataStore.entries.forEach((e, i) => {
+                    if (e.id === id) {
+                        console.log('e ', e, 'entry ', entry);
+                        this.dataStore.entries[i] = entry;
+                    }
+                });
+                this.entriesSubject.next(Object.assign({}, this.dataStore).entries)
+            }, error => this.handleError(error));
+    }
+
+    delete(id:String){
+        return this.http
+            .delete(`${this.entriesApiUrl}${id}`, {headers: this.headers})
+            .toPromise()
+            //.then(res => res.json() as Entry)
+            .then(() => {
+                this.dataStore.entries.forEach((t, i) => {
+                    if (t.id === id) { this.dataStore.entries.splice(i, 1); }
+                });
+                this.entriesSubject.next(Object.assign({}, this.dataStore).entries)
+            }, error => this.handleError(error));
+    }
+
     addEntry(entry:Entry): Promise<Entry> {
-        entry.createdAt = new Date();
         return this.http
             .post(this.entriesApiUrl, JSON.stringify(entry), {headers: this.headers})
             .toPromise()

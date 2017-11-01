@@ -19,25 +19,11 @@ export class PeriodProgressMeasureComponent implements OnInit {
 
     ngOnInit() {
         let periodMeasures = new PeriodMeasures();
-        periodMeasures.carbs = new Measurement();
-        periodMeasures.carbs.label = "Carbs";
-        periodMeasures.carbs.target = 220;
-        periodMeasures.carbs.value = 0;
+        periodMeasures.carbs = new Measurement("Carbs", 0, 220);
+        periodMeasures.fats = new Measurement("Fats", 0, 55);
+        periodMeasures.proteins = new Measurement("Proteins", 0, 150);
+        periodMeasures.calories = new Measurement("Calories", 0, 2000);
 
-        periodMeasures.fats = new Measurement();
-        periodMeasures.fats.label = "Fats";
-        periodMeasures.fats.target = 55;
-        periodMeasures.fats.value = 0;
-
-        periodMeasures.proteins = new Measurement();
-        periodMeasures.proteins.label = "Proteins";
-        periodMeasures.proteins.target = 150;
-        periodMeasures.proteins.value = 0;
-
-        periodMeasures.calories = new Measurement();
-        periodMeasures.calories.label = "Calories";
-        periodMeasures.calories.target = 2000;
-        periodMeasures.calories.value = 0;
         this.periodValues = periodMeasures;
 
         // watch when the entries change and update the view accordingly.

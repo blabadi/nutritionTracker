@@ -1,6 +1,6 @@
 
 export class Food {
-    id : number;
+    id : string;
     name : string;
     brand: string = null;
     imageUrl: string = null;
