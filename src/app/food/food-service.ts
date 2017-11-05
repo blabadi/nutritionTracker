@@ -8,15 +8,20 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class FoodService {
+
     private headers = new Headers({'Content-Type': 'application/json'});
     private foodsUrl =
         //'api/foods';
         'http://localhost:8080/food/';
-    constructor(private http: Http){}
+    constructor(private http: Http){
+        let username: string = 'bashar';
+        let password: string = 'password';
+        this.headers.append("Authorization", "Basic " + btoa(username + ":" + password));
+    }
 
     getFoods(): Promise<Food[]> {
         //return new MockFoods().getMockData();
-        return this.http.get(this.foodsUrl+ "all")
+        return this.http.get(this.foodsUrl+ "all", {headers: this.headers})
             .toPromise()
             .then(response => response.json().data as Food[])
             .catch(this.handleError);
@@ -24,7 +29,7 @@ export class FoodService {
 
     searchFood(term:string):Observable<Food[]> {
         return this.http
-            .get(`${this.foodsUrl}search?name=${term}`)
+            .get(`${this.foodsUrl}search?name=${term}`, {headers: this.headers})
             .map(response => response.json() as Food[]);
     }
 

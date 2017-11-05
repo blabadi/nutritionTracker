@@ -1,6 +1,21 @@
 # NutritionTracker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.1.
+- Done List:
+. search food db
+. add new food
+. add food entry for a day
+. navigate through entries daily
+. edit / delete entry
+. undo delete entry
+. display progress against targets (currently static targets)
+
+- Todo List:
+. add accounts
+. add user targets
+. integrate with USDA food API: key - oiz3RqxWkZAuaEVlGzqT9tDypJGoX0mecZ003TKC
+  https://ndb.nal.usda.gov/ndb/doc/apilist/API-SEARCH.md
+
+
 
 ## Development server
 

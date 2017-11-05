@@ -60,4 +60,5 @@ body{
   left: 50%;
   transform: translateX(-50%);
   top: 1rem;
+  z-index: 999999999;
 }

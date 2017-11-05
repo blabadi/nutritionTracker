@@ -32,6 +32,9 @@ export class EntryService {
 
     // Behaviour subject has to be initialized.
     constructor(private http:Http){
+        let username: string = 'bashar';
+        let password: string = 'password';
+        this.headers.append("Authorization", "Basic " + btoa(username + ":" + password));
         this.dataStore = { entries: [] };
         this.entriesSubject =  <BehaviorSubject<Entry[]>>new BehaviorSubject([]);
     }
@@ -43,7 +46,7 @@ export class EntryService {
     }
 
     getEntries(start:moment.Moment, end:moment.Moment) {
-        return this.http.get(this.entriesApiUrl + `/from/${start.format('YYYYMMDD')}/to/${end.format('YYYYMMDD')}` )
+        return this.http.get(this.entriesApiUrl + `/from/${start.format('YYYYMMDD')}/to/${end.format('YYYYMMDD')}`, {headers: this.headers})
             // map returns observable
             .map(response => response.json() as Entry[])
             .subscribe(entries => {
@@ -86,6 +89,7 @@ export class EntryService {
     }
 
     addEntry(entry:Entry): Promise<Entry> {
+        entry.createdAt = new Date();
         return this.http
             .post(this.entriesApiUrl, JSON.stringify(entry), {headers: this.headers})
             .toPromise()

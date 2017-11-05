@@ -29,7 +29,7 @@ export class DayEntriesComponent implements OnInit, OnDestroy {
     underEditEntryId: string;
     showUndoDelete:boolean = false;
     lastDeletedEntry:Entry;
-
+    deleteTimeOut:any;
     constructor(private entryService: EntryService,
                 private eventsBroker:EventsBroker) {};
 
@@ -59,12 +59,16 @@ export class DayEntriesComponent implements OnInit, OnDestroy {
     undoDelete() {
         this.entryService.addEntry(this.lastDeletedEntry);
         this.showUndoDelete = false;
+        //clear the time out otherwise if we delete another entity
+        // within the timeout it will not be invoked earlier than 7 secs, causing the undo
+        //option to disappear.
+        clearTimeout(this.deleteTimeOut);
     }
 
     remove(entry:Entry) {
         this.entryService.delete(entry.id);
         this.showUndoDelete = true;
-        setTimeout(()=>{
+        this.deleteTimeOut = setTimeout(()=>{
             this.showUndoDelete = false;
             this.lastDeletedEntry = null;
         }, 7000);
