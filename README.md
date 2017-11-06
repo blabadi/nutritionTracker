@@ -8,12 +8,16 @@
 . edit / delete entry
 . undo delete entry
 . display progress against targets (currently static targets)
+. add accounts - phase 1 : in memory user store, login/logout
 
 - Todo List:
-. add accounts
+. db user store (save hashed passwords)
+. centralize auth header in services
+. registration
 . add user targets
 . integrate with USDA food API: key - oiz3RqxWkZAuaEVlGzqT9tDypJGoX0mecZ003TKC
   https://ndb.nal.usda.gov/ndb/doc/apilist/API-SEARCH.md
+. edit my foods
 
 
 
@@ -41,3 +45,7 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+references used during this project dev:
+http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial

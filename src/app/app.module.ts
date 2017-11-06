@@ -7,14 +7,15 @@ import {DayEntriesComponent} from './day-entries/day-entries.component';
 import {AddEntryComponent} from "./entry/add-entry.component";
 import {AddFormComponent} from "./entry/add-form.component";
 import {SearchFoodComponent} from "./food/search-food.component";
-
+import {routing} from "./router/routes";
+import {AuthChecker} from "./router/auth-checker"
+import {HomeComponent} from "./home/home.component"
 //only for stub http requests
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 
 import { HttpModule } from '@angular/http';
 
-//import { EventsServiceModule } from 'angular-event-service';
 import {TitleCasePipe} from "./pipes/title-case-pipe";
 import {AddFoodComponent} from "./food/add-food.component";
 import {EventsBroker} from "./broker/components-event-broker";
@@ -23,7 +24,8 @@ import {ProgressMeasureComponent} from "./day-progress-bars/progress-measure.com
 import {EntryService} from "./entry/entry-service";
 import {FoodService} from "./food/food-service";
 import {DateNavigatorComponent} from "./date-navigator/date-navigator.component";
-
+import {LoginComponent} from "./auth/login.component";
+import {AuthenticationService} from "./auth/auth-service";
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +34,8 @@ import {DateNavigatorComponent} from "./date-navigator/date-navigator.component"
     DayEntriesComponent,
     AddFormComponent,
     SearchFoodComponent,
+    LoginComponent,
+    HomeComponent,
     TitleCasePipe,
     AddFoodComponent,
     PeriodProgressMeasureComponent,
@@ -42,11 +46,12 @@ import {DateNavigatorComponent} from "./date-navigator/date-navigator.component"
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    routing,
     //InMemoryWebApiModule.forRoot(InMemoryDataService),
     HttpModule,
     //EventsServiceModule.forRoot()
   ],
-  providers: [EventsBroker, EntryService, FoodService],
+  providers: [EventsBroker, EntryService, FoodService, AuthChecker, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

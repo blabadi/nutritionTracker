@@ -9,6 +9,10 @@ import {Entry} from "./entry/entry";
 export class AppComponent {
   title = 'app';
 
+  showLogout(){
+    return sessionStorage.getItem("currentUser") != null;
+  }
+
   entryAdded(entry:Entry) {
     console.log('entryAdded..');
   }

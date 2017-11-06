@@ -14,13 +14,11 @@ import {Measurement} from "../day-progress-bars/measurement";
  */
 @Injectable()
 export class EntryService {
-
     private entriesApiUrl = Constants.API.SERVER_BASE + "/entry/";//'api/entries';
-    private headers = new Headers({'Content-Type': 'application/json'});
 
     // the live stream of entries
     entries: Observable<Entry[]>;
-
+    user:any;
     // will serve as the pipe that we notify our subscribers about changes in entries,
     // every time we change the entries this subject will be updated to invoke subscribers
     private entriesSubject: BehaviorSubject<Entry[]>;
@@ -34,7 +32,7 @@ export class EntryService {
     constructor(private http:Http){
         let username: string = 'bashar';
         let password: string = 'password';
-        this.headers.append("Authorization", "Basic " + btoa(username + ":" + password));
+        this.user = JSON.parse(sessionStorage.getItem('currentUser'));
         this.dataStore = { entries: [] };
         this.entriesSubject =  <BehaviorSubject<Entry[]>>new BehaviorSubject([]);
     }
@@ -46,7 +44,9 @@ export class EntryService {
     }
 
     getEntries(start:moment.Moment, end:moment.Moment) {
-        return this.http.get(this.entriesApiUrl + `/from/${start.format('YYYYMMDD')}/to/${end.format('YYYYMMDD')}`, {headers: this.headers})
+        let headers = new Headers({'Content-Type': 'application/json'});
+        headers.append("Authorization", "Basic " + this.user.token);
+        return this.http.get(this.entriesApiUrl + `/from/${start.format('YYYYMMDD')}/to/${end.format('YYYYMMDD')}`, {headers: headers})
             // map returns observable
             .map(response => response.json() as Entry[])
             .subscribe(entries => {
@@ -60,8 +60,10 @@ export class EntryService {
 
     edit(entry:Entry) {
         let id = entry.id;
+        let headers = new Headers({'Content-Type': 'application/json'});
+        headers.append("Authorization", "Basic " + this.user.token);
         return this.http
-            .put(this.entriesApiUrl, JSON.stringify(entry), {headers: this.headers})
+            .put(this.entriesApiUrl, JSON.stringify(entry), {headers: headers})
             .toPromise()
             //.then(res => res.json() as Entry)
             .then(() => {
@@ -76,8 +78,10 @@ export class EntryService {
     }
 
     delete(id:String){
+        let headers = new Headers({'Content-Type': 'application/json'});
+        headers.append("Authorization", "Basic " + this.user.token);
         return this.http
-            .delete(`${this.entriesApiUrl}${id}`, {headers: this.headers})
+            .delete(`${this.entriesApiUrl}${id}`, {headers: headers})
             .toPromise()
             //.then(res => res.json() as Entry)
             .then(() => {
@@ -90,8 +94,10 @@ export class EntryService {
 
     addEntry(entry:Entry): Promise<Entry> {
         entry.createdAt = new Date();
+        let headers = new Headers({'Content-Type': 'application/json'});
+        headers.append("Authorization", "Basic " + this.user.token);
         return this.http
-            .post(this.entriesApiUrl, JSON.stringify(entry), {headers: this.headers})
+            .post(this.entriesApiUrl, JSON.stringify(entry), {headers: headers})
             .toPromise()
             .then(res => res.json() as Entry)
             .then(e => {
