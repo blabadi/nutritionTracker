@@ -30,9 +30,6 @@ export class EntryService {
 
     // Behaviour subject has to be initialized.
     constructor(private http:Http){
-        let username: string = 'bashar';
-        let password: string = 'password';
-        this.user = JSON.parse(sessionStorage.getItem('currentUser'));
         this.dataStore = { entries: [] };
         this.entriesSubject =  <BehaviorSubject<Entry[]>>new BehaviorSubject([]);
     }
@@ -45,6 +42,7 @@ export class EntryService {
 
     getEntries(start:moment.Moment, end:moment.Moment) {
         let headers = new Headers({'Content-Type': 'application/json'});
+        this.user = JSON.parse(sessionStorage.getItem('currentUser'));
         headers.append("Authorization", "Basic " + this.user.token);
         return this.http.get(this.entriesApiUrl + `/from/${start.format('YYYYMMDD')}/to/${end.format('YYYYMMDD')}`, {headers: headers})
             // map returns observable
@@ -61,6 +59,7 @@ export class EntryService {
     edit(entry:Entry) {
         let id = entry.id;
         let headers = new Headers({'Content-Type': 'application/json'});
+        this.user = JSON.parse(sessionStorage.getItem('currentUser'));
         headers.append("Authorization", "Basic " + this.user.token);
         return this.http
             .put(this.entriesApiUrl, JSON.stringify(entry), {headers: headers})
@@ -79,6 +78,7 @@ export class EntryService {
 
     delete(id:String){
         let headers = new Headers({'Content-Type': 'application/json'});
+        this.user = JSON.parse(sessionStorage.getItem('currentUser'));
         headers.append("Authorization", "Basic " + this.user.token);
         return this.http
             .delete(`${this.entriesApiUrl}${id}`, {headers: headers})
@@ -95,6 +95,7 @@ export class EntryService {
     addEntry(entry:Entry): Promise<Entry> {
         entry.createdAt = new Date();
         let headers = new Headers({'Content-Type': 'application/json'});
+        this.user = JSON.parse(sessionStorage.getItem('currentUser'));
         headers.append("Authorization", "Basic " + this.user.token);
         return this.http
             .post(this.entriesApiUrl, JSON.stringify(entry), {headers: headers})

@@ -8,7 +8,9 @@
 . edit / delete entry
 . undo delete entry
 . display progress against targets (currently static targets)
-. add accounts - phase 1 : in memory user store, login/logout
+. add accounts
+    - phase 1 : in memory user store, login/logout
+    - phase 2 : db auth, add user for entries, show only my entries
 
 - Todo List:
 . db user store (save hashed passwords)
@@ -18,6 +20,7 @@
 . integrate with USDA food API: key - oiz3RqxWkZAuaEVlGzqT9tDypJGoX0mecZ003TKC
   https://ndb.nal.usda.gov/ndb/doc/apilist/API-SEARCH.md
 . edit my foods
+. upgrade to angular 5
 
 
 
