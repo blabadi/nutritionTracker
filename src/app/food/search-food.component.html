@@ -1,11 +1,11 @@
-<div class="search-food-container m-1">
+<div  class="search-food-container m-1" >
   <input #searchBox type="text" id="search-box" class="form-control form-control-lg" (keyup)="search(searchBox.value)" placeholder="Search for food..">
-  <div class="search-result-list" *ngIf="searchBox.value">
-    <div *ngFor="let f of foods | async" (click)="setSelected(f);searchBox.value = '';" class="search-result">
-      {{f.name}} - {{f.brand | titleCase  }} <!-- title case custom pipe just for demo.. -->
-    </div>
-    <div class="search-result" (click) = "searchBox.value = '';addNewFood();">
+  <div tabindex="0" class="search-result-list" *ngIf="searchBox.value" >
+    <a href="#addEntry" *ngFor="let f of foods | async" class="search-result d-block" (click)="setSelected(f);searchBox.value = '';" >
+       {{f.name}} - {{f.brand | titleCase  }}  <!-- title case custom pipe just for demo.. -->
+    </a>
+    <a href="#addNew" class="search-result d-block" (click) = "searchBox.value = '';addNewFood();">
       <strong>Add New...</strong>
-    </div>
+    </a>
   </div>
 </div>

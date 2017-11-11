@@ -15,6 +15,6 @@ export class Constants {
     };
 
     public static API = {
-        SERVER_BASE : 'http://localhost:8080'
+        SERVER_BASE : 'http://localhost:8080/api'
     }
 }

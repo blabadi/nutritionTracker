@@ -5,39 +5,32 @@ import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
+import {Constants} from "../constants";
+import {ServiceBase} from "../common/service-base";
 
 @Injectable()
-export class FoodService {
-    private foodsUrl =
-        //'api/foods';
-        'http://localhost:8080/food/';
-    private user;
+export class FoodService extends ServiceBase {
+    private foodsUrl = Constants.API.SERVER_BASE + '/food/';
     constructor(private http: Http){
-        this.user = JSON.parse(sessionStorage.getItem('currentUser'));
+        super();
     }
 
     getFoods(): Promise<Food[]> {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        headers.append("Authorization", "Basic " + this.user.token);
-        return this.http.get(this.foodsUrl+ "all", {headers: headers})
+        return this.http.get(this.foodsUrl+ "all", {headers: super.getDefaultHeaders()})
             .toPromise()
             .then(response => response.json().data as Food[])
             .catch(this.handleError);
     };
 
     searchFood(term:string):Observable<Food[]> {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        headers.append("Authorization", "Basic " + this.user.token);
         return this.http
-            .get(`${this.foodsUrl}search?name=${term}`, {headers: headers})
+            .get(`${this.foodsUrl}search?name=${term}`, {headers: super.getDefaultHeaders()})
             .map(response => response.json() as Food[]);
     }
 
     addFood(food:Food): Promise<Food> {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        headers.append("Authorization", "Basic " + this.user.token);
         return this.http
-            .post(this.foodsUrl, JSON.stringify(food), {headers: headers})
+            .post(this.foodsUrl, JSON.stringify(food), {headers: super.getDefaultHeaders()})
             .toPromise()
             .then(res => res.json() as Food)
             .catch(this.handleError);

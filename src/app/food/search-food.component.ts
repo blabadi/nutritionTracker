@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, HostListener, ViewChild,ElementRef  } from '@angular/core';
 
 import {Food} from "../food/food";
 import { Observable }        from 'rxjs/Observable';
@@ -26,12 +26,13 @@ import {EventsBroker} from "../broker/components-event-broker";
 export class SearchFoodComponent implements OnInit {
     foods:Observable<Food[]>;
     selectedFood: Food;
-
+    @ViewChild('searchBox')
+    searchBox;
     @Output() onFoodSearchSelected = new EventEmitter<Food>();
 
     private searchTerms = new Subject<string>();
 
-    constructor(private foodService:FoodService, private evntsBroker:EventsBroker){
+    constructor(private foodService:FoodService, private evntsBroker:EventsBroker, private _eref: ElementRef){
     }
 
     ngOnInit(): void{
@@ -48,6 +49,14 @@ export class SearchFoodComponent implements OnInit {
                 console.error(error);
                 return Observable.of<Food[]>([]);
             });
+    }
+
+    @HostListener('document:click', ['$event'])
+    onDocumentClick(e:MouseEvent){
+        console.log('clicked document:' + e.target);
+        if (!this._eref.nativeElement.contains(e.target)) {
+            this.searchBox.nativeElement.value = ''
+        }
     }
 
     search(text:string) {
