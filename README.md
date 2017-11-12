@@ -1,27 +1,27 @@
 # NutritionTracker
 
-- Done List:
-. search food db
-. add new food
-. add food entry for a day
-. navigate through entries daily
-. edit / delete entry
-. undo delete entry
-. display progress against targets (currently static targets)
-. add accounts
-    - phase 1 : in memory user store, login/logout
-    - phase 2 : db auth, add user for entries, show only my entries
+Done List:
+- search food db
+- add new food
+- add food entry for a day
+- navigate through entries daily
+- edit / delete entry
+- undo delete entry
+- display progress against targets (currently static targets)
+- add accounts
+    -- phase 1 : in memory user store, login/logout
+    -- phase 2 : db auth, add user for entries, show only my entries
 
-. fix backend tests in cmd
-. centralize auth header in service calls
-. registration & db user store (save hashed passwords)
+- fix backend tests in cmd
+- centralize auth header in service calls
+- registration & db user store (save hashed passwords)
 
 - Todo List:
-. add user macros targets
-. integrate with USDA food API: key - oiz3RqxWkZAuaEVlGzqT9tDypJGoX0mecZ003TKC
-  https://ndb.nal.usda.gov/ndb/doc/apilist/API-SEARCH.md
-. edit my foods
-. upgrade to angular 5
+    - add user macros targets
+    - integrate with USDA food API: key - oiz3RqxWkZAuaEVlGzqT9tDypJGoX0mecZ003TKC
+    - https://ndb.nal.usda.gov/ndb/doc/apilist/API-SEARCH.md
+    - edit my foods
+    - upgrade to angular 5
 
 
 ## Development server
