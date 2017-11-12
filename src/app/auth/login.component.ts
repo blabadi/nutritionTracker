@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {AuthenticationService } from "./auth-service";
+import {User} from "./user";
 @Component({
     moduleId: module.id,
     templateUrl: 'login.component.html'
 })
 
 export class LoginComponent implements OnInit {
-    model: any = {};
+    loginModel: any = {};
+    registerModel:any = {};
     loading = false;
+    rloading = false;
     returnUrl: string;
 
     constructor(
@@ -24,15 +27,32 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
-    login() {
-        this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password)
+    register() {
+        this.rloading = true;
+        let user:User = new User(
+            this.registerModel.username,
+            this.registerModel.password,
+            this.registerModel.email
+        );
+
+        this.authenticationService.register(user)
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    //this.alertService.error(error);
+                    this.loading = false;
+                });
+    }
+
+    login() {
+        this.loading = true;
+        this.authenticationService.login(this.loginModel.username, this.loginModel.password)
+            .subscribe(
+                data => {
+                    this.router.navigate([this.returnUrl]);
+                },
+                error => {
                     this.loading = false;
                 });
     }

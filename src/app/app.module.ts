@@ -15,7 +15,7 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 
 import { HttpModule } from '@angular/http';
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {TitleCasePipe} from "./pipes/title-case-pipe";
 import {AddFoodComponent} from "./food/add-food.component";
 import {EventsBroker} from "./broker/components-event-broker";
@@ -26,6 +26,9 @@ import {FoodService} from "./food/food-service";
 import {DateNavigatorComponent} from "./date-navigator/date-navigator.component";
 import {LoginComponent} from "./auth/login.component";
 import {AuthenticationService} from "./auth/auth-service";
+import {AuthHeaderInterceptor} from "./auth/auth-header.interceptor";
+import {UserStorage} from "./auth/user-storage";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,12 +49,25 @@ import {AuthenticationService} from "./auth/auth-service";
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    HttpClientModule,
     routing,
     //InMemoryWebApiModule.forRoot(InMemoryDataService),
     HttpModule,
     //EventsServiceModule.forRoot()
   ],
-  providers: [EventsBroker, EntryService, FoodService, AuthChecker, AuthenticationService],
+  providers: [
+    UserStorage,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHeaderInterceptor,
+      multi: true
+    },
+    EventsBroker,
+    EntryService,
+    FoodService,
+    AuthChecker,
+    AuthenticationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

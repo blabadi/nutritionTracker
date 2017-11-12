@@ -66,7 +66,7 @@ export class DayEntriesComponent implements OnInit, OnDestroy {
     }
 
     remove(entry:Entry) {
-        this.entryService.delete(entry.id);
+        this.entryService.remove(entry.id);
         this.showUndoDelete = true;
         this.deleteTimeOut = setTimeout(()=>{
             this.showUndoDelete = false;

@@ -3,18 +3,17 @@ import * as moment from 'moment';
 import {Food} from '../food/food';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
-import { Headers, Http } from '@angular/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import {Constants} from "../constants";
 import {PeriodMeasures} from "../day-progress-bars/period-measures";
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {Measurement} from "../day-progress-bars/measurement";
-import {ServiceBase} from "../common/service-base";
 /**
  * the data store pattern: https://coryrylan.com/blog/angular-observable-data-services
  */
 @Injectable()
-export class EntryService extends ServiceBase{
+export class EntryService {
     private entriesApiUrl = Constants.API.SERVER_BASE + "/entry/";
 
     // the live stream of entries
@@ -30,8 +29,7 @@ export class EntryService extends ServiceBase{
     };
 
     // Behaviour subject has to be initialized.
-    constructor(private http:Http){
-        super();
+    constructor(private http:Http, private httpClient:HttpClient){
         this.dataStore = { entries: [] };
         this.entriesSubject =  <BehaviorSubject<Entry[]>>new BehaviorSubject([]);
     }
@@ -43,10 +41,9 @@ export class EntryService extends ServiceBase{
     }
 
     getEntries(start:moment.Moment, end:moment.Moment) {
-        return this.http.get(this.entriesApiUrl + `/from/${start.format('YYYYMMDD')}/to/${end.format('YYYYMMDD')}`,
-            {headers: super.getDefaultHeaders()})
+        return this.httpClient.get(this.entriesApiUrl + `/from/${start.format('YYYYMMDD')}/to/${end.format('YYYYMMDD')}`)
             // map returns observable
-            .map(response => response.json() as Entry[])
+            .map(response => response as Entry[])
             .subscribe(entries => {
                 this.dataStore.entries = entries;
                 // we push the new values to our observers by using the next()
@@ -58,10 +55,9 @@ export class EntryService extends ServiceBase{
 
     edit(entry:Entry) {
         let id = entry.id;
-        return this.http
-            .put(this.entriesApiUrl, JSON.stringify(entry), {headers: super.getDefaultHeaders()})
+        return this.httpClient
+            .put(this.entriesApiUrl, entry)
             .toPromise()
-            //.then(res => res.json() as Entry)
             .then(() => {
                 this.dataStore.entries.forEach((e, i) => {
                     if (e.id === id) {
@@ -73,9 +69,9 @@ export class EntryService extends ServiceBase{
             }, error => this.handleError(error));
     }
 
-    delete(id:String){
-        return this.http
-            .delete(`${this.entriesApiUrl}${id}`, {headers: super.getDefaultHeaders()})
+    remove(id:String){
+        return this.httpClient
+            .delete(`${this.entriesApiUrl}${id}`)
             .toPromise()
             .then(() => {
                 this.dataStore.entries.forEach((t, i) => {
@@ -86,12 +82,10 @@ export class EntryService extends ServiceBase{
     }
 
     addEntry(entry:Entry): Promise<Entry> {
-        entry.createdAt = new Date();
-        return this.http
-            .post(this.entriesApiUrl, JSON.stringify(entry), {headers: super.getDefaultHeaders()})
+        return this.httpClient
+            .post(this.entriesApiUrl, entry)
             .toPromise()
-            .then(res => res.json() as Entry)
-            .then(e => {
+            .then((e:Entry) => {
                 this.dataStore.entries.push(e);
                 this.entriesSubject.next(Object.assign({}, this.dataStore).entries)
             }, error => this.handleError(error));
