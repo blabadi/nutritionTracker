@@ -25,7 +25,7 @@ import {EntryService} from "./entry/entry-service";
 import {FoodService} from "./food/food-service";
 import {DateNavigatorComponent} from "./date-navigator/date-navigator.component";
 import {LoginComponent} from "./auth/login.component";
-import {AuthenticationService} from "./auth/auth-service";
+import {UserService} from "./auth/user-service";
 import {AuthHeaderInterceptor} from "./auth/auth-header.interceptor";
 import {UserStorage} from "./auth/user-storage";
 
@@ -66,7 +66,7 @@ import {UserStorage} from "./auth/user-storage";
     EntryService,
     FoodService,
     AuthChecker,
-    AuthenticationService
+    UserService
   ],
   bootstrap: [AppComponent]
 })

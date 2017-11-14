@@ -19,7 +19,7 @@ Done List:
 - Todo List:
     - add user macros targets
     - integrate with USDA food API: key - oiz3RqxWkZAuaEVlGzqT9tDypJGoX0mecZ003TKC
-    - https://ndb.nal.usda.gov/ndb/doc/apilist/API-SEARCH.md
+      https://ndb.nal.usda.gov/ndb/doc/apilist/API-SEARCH.md
     - edit my foods
     - upgrade to angular 5
 

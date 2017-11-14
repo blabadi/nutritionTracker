@@ -51,6 +51,7 @@ export class SearchFoodComponent implements OnInit {
             });
     }
 
+    //this is a handler to close the search list if it loses focus.
     @HostListener('document:click', ['$event'])
     onDocumentClick(e:MouseEvent){
         console.log('clicked document:' + e.target);

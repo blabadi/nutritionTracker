@@ -17,7 +17,7 @@ export class EntryService {
     private entriesApiUrl = Constants.API.SERVER_BASE + "/entry/";
 
     // the live stream of entries
-    entries: Observable<Entry[]>;
+    //entries: Observable<Entry[]>;
 
     // will serve as the pipe that we notify our subscribers about changes in entries,
     // every time we change the entries this subject will be updated to invoke subscribers
@@ -29,7 +29,7 @@ export class EntryService {
     };
 
     // Behaviour subject has to be initialized.
-    constructor(private http:Http, private httpClient:HttpClient){
+    constructor(private httpClient:HttpClient){
         this.dataStore = { entries: [] };
         this.entriesSubject =  <BehaviorSubject<Entry[]>>new BehaviorSubject([]);
     }
