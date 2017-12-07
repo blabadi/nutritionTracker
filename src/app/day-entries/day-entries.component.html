@@ -17,10 +17,10 @@
           <div *ngIf="!isEditMode(entry.id)" class="card-subtitle mb-2 text-muted">{{entry.amount}} serving<small>(s)</small>, {{entry.food.unit}} each</div>
 
           <p class="card-text">
-            <span class="badge badge-info p-1"><span class="badge badge-light p-1 mr-1">{{entry.food.calories * entry.amount}}</span> Calories</span>
-            <span class="badge badge-success p-1"><span class="badge badge-light p-1 mr-1">{{entry.food.carbs * entry.amount}}</span>Carbs</span>
-            <span class="badge badge-warning p-1"><span class="badge badge-light p-1 mr-1">{{entry.food.fat * entry.amount}}</span> Fats</span>
-            <span class="badge badge-danger p-1"><span class="badge badge-light p-1 mr-1">{{entry.food.protein * entry.amount}}</span> Protein</span>
+            <span class="badge badge-info p-1"><span class="badge badge-light p-1 mr-1">{{round(entry.food.calories * entry.amount)}}</span> Calories</span>
+            <span class="badge badge-success p-1"><span class="badge badge-light p-1 mr-1">{{round(entry.food.carbs * entry.amount)}}</span>Carbs</span>
+            <span class="badge badge-warning p-1"><span class="badge badge-light p-1 mr-1">{{round(entry.food.fat * entry.amount)}}</span> Fats</span>
+            <span class="badge badge-danger p-1"><span class="badge badge-light p-1 mr-1">{{round(entry.food.protein * entry.amount)}}</span> Protein</span>
           </p>
           <p class="card-text"><small class="text-muted">{{entry.createdAt | date:'short'}}</small></p>
 

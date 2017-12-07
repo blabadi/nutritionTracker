@@ -5,7 +5,7 @@
   </div>
 </div>
 <div class="row justify-content-md-center">
-  <div class="col-md-5 col-lg-5">
+  <div class="col-md-3 col-lg-3">
     <h2>Login</h2>
     <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
@@ -27,7 +27,7 @@
   <div class="col-md-1  vertical-align-mid text-center " >
     <div class="h-100 ml-5" style="border-left: 1px solid #D8D8D8;"></div>
   </div>
-  <div class="col-md-5 col-lg-5">
+  <div class="col-md-3 col-lg-3">
     <h2>Register</h2>
     <form name="rorm" (ngSubmit)="rf.form.valid && register()" #rf="ngForm" novalidate>
       <div class="form-group" [ngClass]="{ 'has-error': rf.submitted && !u.valid }">

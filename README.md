@@ -15,9 +15,9 @@ Done List:
 - fix backend tests in cmd
 - centralize auth header in service calls
 - registration & db user store (save hashed passwords)
+- add user macros targets
 
 - Todo List:
-    - add user macros targets
     - integrate with USDA food API: key - oiz3RqxWkZAuaEVlGzqT9tDypJGoX0mecZ003TKC
       https://ndb.nal.usda.gov/ndb/doc/apilist/API-SEARCH.md
     - edit my foods

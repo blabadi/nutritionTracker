@@ -94,6 +94,9 @@ export class DayEntriesComponent implements OnInit, OnDestroy {
         return this.underEditEntryId == id;
     }
 
+    round(val:number){
+        return Math.round(val);
+    }
     public dateChanged =  (msg: any) => {
         let range:any = msg.value;
         console.log('received new date range from evnt service : ',  range);

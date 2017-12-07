@@ -62,3 +62,10 @@ body{
   top: 1rem;
   z-index: 999999999;
 }
+
+/*bootstrap bug, appears in firefox, the placeholder text gets clipped*/
+.form-control[type=number] {
+  /*padding-top: 0;*/
+  /*padding-bottom: 0;*/
+  line-height: normal;
+}

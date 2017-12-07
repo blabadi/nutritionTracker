@@ -29,7 +29,7 @@ export class FoodService {
 
     addFood(food:Food): Promise<Food> {
         return this.httpClient
-            .post(this.foodsUrl, JSON.stringify(food))
+            .post(this.foodsUrl, food)
             .toPromise()
             .then(res => res as Food)
             .catch(this.handleError);

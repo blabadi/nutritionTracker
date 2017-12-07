@@ -17,14 +17,13 @@ export class UserService {
 
     constructor(private http: HttpClient, private userStorage:UserStorage) {
         this.dataStore = {
-            user: new User('', '', [])
+            user: this.userStorage.getCurrentUser() || new User('', '', [])
         };
 
-        this.userSubject =  <BehaviorSubject<User>>new BehaviorSubject({});
+        this.userSubject =  <BehaviorSubject<User>>new BehaviorSubject(this.dataStore.user);
     }
 
-
-    public getUserObservable(){
+    public getUserObservable():Observable<User> {
         return this.userSubject.asObservable();
     }
 
@@ -49,6 +48,10 @@ export class UserService {
             .toPromise()
             .then(() => {
                 this.dataStore.user.profile = profile;
+                //its important that the user service to keep the userStorage up to date
+                //as it will be used between page refreshs to fill the dataStore user
+                // that is used in getCurrentUser()
+                this.userStorage.storeUser(this.dataStore.user);
                 this.userSubject.next(Object.assign({}, this.dataStore).user);
             }, error => this.handleError(error));
     }
@@ -57,8 +60,7 @@ export class UserService {
         return this.http.post(Constants.API.SERVER_BASE + '/user/', user)
             .map((response) => {
                 let created = response as User;
-                let authToken = btoa(user.name + ":" + user.password);
-                created.password = authToken;
+                created.password = btoa(user.name + ":" + user.password);;
                 this.userStorage.storeUser(created);
                 this.dataStore.user = created;
                 this.userSubject.next(Object.assign({}, this.dataStore).user);
@@ -69,6 +71,10 @@ export class UserService {
     logout() {
         // remove user from local storage to log user out
         sessionStorage.removeItem('currentUser');
+    }
+
+    getCurrentUser(){
+        return this.userStorage.getCurrentUser();
     }
 
     private handleError(error: any): Promise<any> {

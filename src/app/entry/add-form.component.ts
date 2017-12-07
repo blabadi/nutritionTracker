@@ -41,7 +41,7 @@ export class AddFormComponent implements OnInit, OnDestroy {
     };
 
     addEntry(){
-        this.entry.createdAt = this.entryDate;
+        this.entry.createdAt = this.entryDate || new Date();
         this.entrySvc
             .addEntry(this.entry)
             .then(entry => {
