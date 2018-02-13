@@ -1,0 +1,19 @@
+<div *ngIf="entry.food" class=" add-entry-form card ">
+  <div class="card-header bg-primary ">New Entry</div>
+  <div class="card-body">
+    <label for="servingSize"  class="add-form-food-label">{{entry.food.name}}</label>
+
+    <div class="input-group serving-field-grp">
+      <input #servings id="servingSize" [(ngModel)]="entry.amount" type="number" min="0" class="form-control"
+             placeholder="servings consumed - {{entry.food.unit}} per serving">
+
+      <!-- todo add meal drop down -->
+      <div class="input-group-btn">
+        <button (click)="addEntry()" class="btn btn-primary">Add</button>
+        <button (click)="cancel()" class="btn btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

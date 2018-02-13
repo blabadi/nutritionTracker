@@ -1,0 +1,18 @@
+.day-entry{
+  margin: 1rem 0;
+}
+
+.day-entry .card{
+  transition: 0.3s border, 0.2s margin-left;
+}
+
+.day-entry .card:hover {
+  border:1px solid #007bff;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.day-entries-container {
+  /*max-height: 400px;*/
+}
+

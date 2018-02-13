@@ -1,0 +1,42 @@
+<div class="day-entries-container">
+    <div *ngIf="showUndoDelete" class="alert alert-warning d-inline-block mt-2 top-alert" role="alert">
+      <button type="button" (click)="undoDelete();$event.stopPropagation()" class="btn btn-link">
+        <span class="fa fa-undo"></span> Undo Delete?
+      </button>
+    </div>
+    <div *ngFor="let entry of entries" class="day-entry">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">{{entry.food.name}}</h4>
+
+          <div *ngIf="isEditMode(entry.id)" class="card-subtitle mb-2 row text-muted" >
+            <div clas="col-md-3"><input  class="form-control" placeholder="servings consumed" type="number" min="0" [(ngModel)]="entry.amount"></div>
+            <div class="col-md-9"><div class="d-flex h-100 align-items-center"> Servings, {{entry.food.unit}} per serving </div></div>
+          </div>
+
+          <div *ngIf="!isEditMode(entry.id)" class="card-subtitle mb-2 text-muted">{{entry.amount}} serving<small>(s)</small>, {{entry.food.unit}} each</div>
+
+          <p class="card-text">
+            <span class="badge badge-info p-1"><span class="badge badge-light p-1 mr-1">{{round(entry.food.calories * entry.amount)}}</span> Calories</span>
+            <span class="badge badge-success p-1"><span class="badge badge-light p-1 mr-1">{{round(entry.food.carbs * entry.amount)}}</span>Carbs</span>
+            <span class="badge badge-warning p-1"><span class="badge badge-light p-1 mr-1">{{round(entry.food.fat * entry.amount)}}</span> Fats</span>
+            <span class="badge badge-danger p-1"><span class="badge badge-light p-1 mr-1">{{round(entry.food.protein * entry.amount)}}</span> Protein</span>
+          </p>
+          <p class="card-text"><small class="text-muted">{{entry.createdAt | date:'short'}}</small></p>
+
+          <button *ngIf="!isEditMode(entry.id)" type="button" (click)="editMode(entry);$event.stopPropagation()" class="btn btn-link">
+            <span class="fa fa-pencil"></span> Edit
+          </button>
+          <button *ngIf="isEditMode(entry.id)" type="button" (click)="saveEdit(entry);$event.stopPropagation()" class="btn btn-primary">
+            <span class="fa fa-check-circle-o"></span> Save
+          </button>
+          <button *ngIf="isEditMode(entry.id)" type="button" (click)="stopEdit();$event.stopPropagation()" class="btn btn-secondary">
+            <span class="fa fa-times-circle-o"></span> Cancel
+          </button>
+          <button *ngIf="!isEditMode(entry.id)" type="button" (click)="remove(entry);$event.stopPropagation()" class="btn btn-link">
+            <span class="fa fa-trash-o"></span> Remove
+          </button>
+        </div>
+      </div>
+    </div>
+</div>

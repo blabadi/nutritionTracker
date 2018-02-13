@@ -1,0 +1,16 @@
+
+  <div class="card progress-measure-container">
+    <div class="card-header">{{measure.label}}</div>
+    <div class="card-body">
+
+      <div class="progress">
+        <div class="progress-bar"
+             role="progressbar"
+             [attr.aria-valuenow]="measure.value / measure.target * 100"
+             aria-valuemin="0" aria-valuemax="100"
+             [style.width.%]="getMeasurePercentage()">
+        </div>
+      </div>
+      {{measure.value}} / {{measure.target}}
+    </div>
+  </div>

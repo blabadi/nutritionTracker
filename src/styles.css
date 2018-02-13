@@ -1,0 +1,71 @@
+/* You can add global styles to this file, and also import other style files */
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
+
+body{
+  background-color: #fefefe !important;
+}
+
+.card {
+  /*overflow: hidden;*/
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 9px 0 rgba(0, 0, 0, 0.12);
+  -webkit-transition: .25s box-shadow;
+  transition: .25s box-shadow;
+}
+
+.card:focus, .card:hover {
+  box-shadow: 0 0px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+}
+
+.btn-link {
+  cursor: pointer;
+}
+.daily-progress {
+  margin-bottom: 2rem;
+}
+
+.add-entry-form, .add-food-container{
+  margin-bottom: 1rem;
+}
+
+/**  STYLE 1 */
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #8e8e8e;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+.vertical-align-mid{
+  vertical-align: middle;
+}
+
+.top-alert {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 1rem;
+  z-index: 999999999;
+}
+
+/*bootstrap bug, appears in firefox, the placeholder text gets clipped*/
+.form-control[type=number] {
+  /*padding-top: 0;*/
+  /*padding-bottom: 0;*/
+  line-height: normal;
+}

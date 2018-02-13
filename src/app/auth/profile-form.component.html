@@ -1,0 +1,70 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate>
+
+  <div class="mb-2">
+    <button type="submit"
+            [disabled]="profileForm.pristine" class="btn btn-success">Save</button> &nbsp;
+    <button type="reset" (click)="revert()"
+            [disabled]="profileForm.pristine" class="btn btn-danger">Revert</button>
+  </div>
+  <div class="card mb-2">
+    <div class="card-header bg-primary">Profile</div>
+    <div class="card-body">
+
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label for="carbs" class="col-form-label">Current Weight</label>
+          <input type="number" class="form-control" id="weight" name="carbs" formControlName="currentWeight" min="0" aria-valuemin="0">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="carbs" class="col-form-label">Target Weight</label>
+          <input type="number" class="form-control" id="targetWeight" name="carbs" formControlName="targetWeight" min="0" aria-valuemin="0">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label for="calories" class="col-form-label">Height</label>
+          <input type="number" class="form-control" id="height" name="calories" formControlName="heightCm" min="0" aria-valuemin="0">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="carbs" class="col-form-label">fat %</label>
+          <input type="number" class="form-control" id="fatPercentage" name="carbs" formControlName="fatPercentage" min="0" aria-valuemin="0">
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+<div class="card">
+  <div class="card-header bg-primary">Macros Targets</div>
+  <div class="card-body">
+
+    <div class="form-group col-md-3">
+      <label for="calories" class="col-form-label">Calories</label>
+      <input type="number" class="form-control" id="calories" name="calories" formControlName="calories" min="0" aria-valuemin="0">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="carbs" class="col-form-label">Carbs</label>
+      <input type="number" class="form-control" id="carbs" name="carbs" formControlName="carbs" min="0" aria-valuemin="0">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="protein" class="col-form-label">Protein</label>
+      <input type="number" class="form-control" id="protein" name="protein" formControlName="proteins" min="0" aria-valuemin="0">
+    </div>
+    <div class="form-group col-md-3">
+      <label class="col-form-label">Fats</label>
+      <input type="number" class="form-control" formControlName="fats" min="0" aria-valuemin="0">
+    </div>
+
+
+  </div>
+</div>
+  <div style="margin-top: 1em">
+    <button type="submit"
+            [disabled]="profileForm.pristine" class="btn btn-success">Save</button> &nbsp;
+    <button type="reset" (click)="revert()"
+            [disabled]="profileForm.pristine" class="btn btn-danger">Revert</button>
+  </div>
+
+</form>
