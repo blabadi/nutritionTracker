@@ -24,7 +24,7 @@
     "@angular/router": "^4.3.4",
     "angular-event-service": "^1.2.0",
     "angular-in-memory-web-api": "^0.3.2",
-    "bootstrap": "^4.0.0-beta",
+    "bootstrap": "4.0.0-beta",
     "core-js": "^2.4.1",
     "express": "^4.16.2",
     "rxjs": "^5.4.2",
