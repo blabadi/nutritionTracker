@@ -45,6 +45,12 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 Before running the tests make sure you are serving the app via `ng serve`.
 
+## Running on prod:
+npm run build
+then
+npm run deploy
+then try http://<hostip>:8080/
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
@@ -52,3 +58,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 references used during this project dev:
 http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial
+
+problems I faced while deploying on EC2
+1- I had npm packages installed globally on my dev machine that are not in package.json
+2- windows is not case sensitive some file names in the imports mismatched the file name so they failed to import
