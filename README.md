@@ -46,10 +46,10 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 Before running the tests make sure you are serving the app via `ng serve`.
 
 ## Running on prod:
-npm run build
+ng build --env=prod
 then
 npm run deploy
-then try http://<hostip>:8080/
+then try http://<hostip>:8008/
 
 ## Further help
 
@@ -62,3 +62,5 @@ http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-ex
 problems I faced while deploying on EC2
 1- I had npm packages installed globally on my dev machine that are not in package.json
 2- windows is not case sensitive some file names in the imports mismatched the file name so they failed to import
+3- moved the url of the backend to be environment based
+4- had to export spring active profiles for backend and configured the client origin in the live profile properties.
