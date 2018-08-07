@@ -1,3 +1,5 @@
+import { environment } from "../environments/environment";
+
 export class Constants {
     public static  EVENTS = {
         ENTRY_ADDED: 'entry-added',
@@ -15,6 +17,6 @@ export class Constants {
     };
 
     public static API = {
-        SERVER_BASE : 'http://localhost:8080/api'
+        SERVER_BASE : environment.SERVER_URL
     }
 }
