@@ -1,7 +1,7 @@
-version: '3.5'
+version: '2'
 
 services:
-  something-clever:
+  nutracker-angular:
     container_name: nutracker-angular
     build:
       context: .
