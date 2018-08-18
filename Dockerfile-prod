@@ -29,7 +29,7 @@ COPY . /usr/src/app
 #RUN ng test --watch=false
 
 # generate build
-RUN npm run build --env=prod
+RUN ng build --env=prod
 
 ##################
 ### production ###
