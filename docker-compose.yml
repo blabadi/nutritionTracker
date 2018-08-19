@@ -1,13 +1,11 @@
 version: '2'
 
 services:
-  nutracker-angular:
-    container_name: nutracker-angular
+  nutracker-prod:
+    container_name: nutracker-prod
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - '.:/usr/src/app'
-      - '/usr/src/app/node_modules'
     ports:
-      - '4200:4200'
+      - '8008:8008'
+
