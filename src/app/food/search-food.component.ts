@@ -1,16 +1,17 @@
 import { Component, EventEmitter, Output, OnInit, HostListener, ViewChild,ElementRef  } from '@angular/core';
 
 import {Food} from "../food/food";
-import { Observable }        from 'rxjs/Observable';
-import { Subject }           from 'rxjs/Subject';
+import { Observable ,  Subject }        from 'rxjs';
 
 // Observable class extensions
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMap';
+
+
 // Observable operators
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
+
+import {
+    debounceTime, distinctUntilChanged, switchMap
+} from 'rxjs/operators';
+ 
 import {FoodService} from "../food/food-service";
 
 
@@ -36,19 +37,11 @@ export class SearchFoodComponent implements OnInit {
     }
 
     ngOnInit(): void{
-        this.foods = this.searchTerms
-            .debounceTime(300)        // wait 300ms after each keystroke before considering the term
-            .distinctUntilChanged()   // ignore if next search term is same as previous
-            .switchMap(term => term   // switch to new observable each time the term changes
-                // return the http search observable
-                ? this.foodService.searchFood(term)
-                // or the observable of empty heroes if there was no search term
-                : Observable.of<Food[]>([]))
-            .catch(error => {
-                // TODO: add real error handling
-                console.error(error);
-                return Observable.of<Food[]>([]);
-            });
+        this.foods = this.searchTerms.pipe(
+            debounceTime(300),        // wait 300ms after each keystroke before considering the term
+            distinctUntilChanged(),   // ignore if next search term is same as previous
+            switchMap(term => this.foodService.searchFood(term))
+        );
     }
 
     //this is a handler to close the search list if it loses focus.

@@ -2,13 +2,13 @@ import { Entry } from './entry';
 import * as moment from 'moment';
 import {Food} from '../food/food';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/toPromise';
+
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import {Constants} from "../constants";
 import {PeriodMeasures} from "../day-progress-bars/period-measures";
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable, of ,  BehaviorSubject } from 'rxjs';
 import {Measurement} from "../day-progress-bars/measurement";
+
 /**
  * the data store pattern: https://coryrylan.com/blog/angular-observable-data-services
  */
@@ -41,9 +41,9 @@ export class EntryService {
     }
 
     getEntries(start:moment.Moment, end:moment.Moment) {
-        return this.httpClient.get(this.entriesApiUrl + `/from/${start.format('YYYYMMDD')}/to/${end.format('YYYYMMDD')}`)
+        return this.httpClient
+            .get<Entry[]>(this.entriesApiUrl + `/from/${start.format('YYYYMMDD')}/to/${end.format('YYYYMMDD')}`)
             // map returns observable
-            .map(response => response as Entry[])
             .subscribe(entries => {
                 this.dataStore.entries = entries;
                 // we push the new values to our observers by using the next()

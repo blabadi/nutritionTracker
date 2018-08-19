@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import {Profile, User} from "./user";
 import {UserService} from "./user-service";
 import {UserStorage} from "./user-storage";
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'profile-form',
