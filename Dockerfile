@@ -30,7 +30,7 @@ ARG BUILD_ENV
 #RUN ng test --watch=false
 
 # generate build
-RUN ng build --env=${BUILD_ENV}
+RUN ng build --env=$BUILD_ENV
 
 ##################
 ### production ###

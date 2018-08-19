@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        BUILD_ENV: alpha
     ports:
       - '8008:8008'
 
