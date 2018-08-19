@@ -1,10 +1,10 @@
 import {Food} from './food';
 import { Injectable } from '@angular/core';
-import { Observable }     from 'rxjs/Observable';
+import { Observable, of }     from 'rxjs';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { catchError, map, tap } from 'rxjs/operators';
 
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map';
+
 import {Constants} from "../constants";
 
 
@@ -22,9 +22,18 @@ export class FoodService {
     };
 
     searchFood(term:string):Observable<Food[]> {
+        if (!term.trim()) {
+            // if not search term, return empty hero array.
+            return of([]);
+        }
         return this.httpClient
-            .get(`${this.foodsUrl}search?name=${term}`)
-            .map(response => response as Food[]);
+            .get<Food[]>(`${this.foodsUrl}search?name=${term}`).pipe(
+                catchError(error => {
+                    // TODO: add real error handling
+                    console.error(error);
+                    return of<Food[]>([]);
+                })
+            );
     }
 
     addFood(food:Food): Promise<Food> {

@@ -8,9 +8,6 @@ import {AddFormComponent} from "./entry/add-form.component";
 import {SearchFoodComponent} from "./food/search-food.component";
 import {routing} from "./router/routes";
 import {AuthChecker} from "./router/auth-checker"
-//only for stub http requests
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }  from './in-memory-data.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {TitleCasePipe} from "./pipes/title-case-pipe";

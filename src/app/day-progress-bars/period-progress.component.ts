@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {PeriodMeasures} from "./period-measures";
 import {EntryService} from "../entry/entry-service";
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {Entry} from "../entry/entry";
 import {Measurement} from "./measurement";
 import {UserService} from "../auth/user-service";

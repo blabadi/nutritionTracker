@@ -4,7 +4,7 @@ import {Entry} from '../entry/entry';
 import * as moment from 'moment';
 import {Constants} from "../constants"
 import {EventsBroker} from "../broker/components-event-broker";
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'day-entries',

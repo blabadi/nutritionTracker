@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
+import { Observable ,  BehaviorSubject } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import {Constants} from "../constants";
 import {User, Profile} from "./user";
 import {UserStorage} from "./user-storage";
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class UserService {
@@ -30,15 +29,16 @@ export class UserService {
     login(username: string, password: string) {
         let authToken = btoa(username + ":" + password);
         let headers:HttpHeaders = new HttpHeaders({"Authorization": "Basic " + authToken});
-        return this.http.get(Constants.API.SERVER_BASE + `/user/${username}`,{headers})
-            .map((response:User) => {
+        return this.http.get(Constants.API.SERVER_BASE + `/user/${username}`,{headers}).pipe(
+            map((response:User) => {
                 let user = response;
                 user.password = authToken;
                 this.userStorage.storeUser(user);
                 this.dataStore.user = user;
                 this.userSubject.next(Object.assign({}, this.dataStore).user);
                 return user;
-            });
+            })
+        );
     }
 
     updateProfile(profile:Profile) {
@@ -57,14 +57,14 @@ export class UserService {
     }
 
     register(user:User) {
-        return this.http.post(Constants.API.SERVER_BASE + '/user/', user)
-            .map((response) => {
+        return this.http.post(Constants.API.SERVER_BASE + '/user/', user).pipe(
+            map((response) => {
                 let created = response as User;
                 created.password = btoa(user.name + ":" + user.password);;
                 this.userStorage.storeUser(created);
                 this.dataStore.user = created;
                 this.userSubject.next(Object.assign({}, this.dataStore).user);
-            });
+            }));
     }
 
 
